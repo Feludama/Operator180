@@ -288,7 +288,40 @@
     background:linear-gradient(180deg,var(--warn-bg),var(--surface) 55%)}
   .medal.earned::after{content:"✓";position:absolute;top:7px;right:10px;color:var(--go);font-weight:700;font-size:13px}
 </style>
-<style>html{background:#14160E}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>html{background:#14160E}body{margin:0}img{max-width:100%}[hidden]{display:none!important}
+.stgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(max-width:620px){.stgrid{grid-template-columns:1fr}}
+.stcard{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:15px 16px;box-shadow:var(--shadow);cursor:pointer;transition:border-color .15s}
+.stcard:hover{border-color:var(--brass)}
+.stcard h4{font-family:var(--font-display);text-transform:uppercase;font-size:16px;color:var(--ink);letter-spacing:.02em}
+.stcard .stkey{font-family:var(--font-mono);font-size:10px;letter-spacing:.12em;color:var(--brass);text-transform:uppercase}
+.stcard .stbest{font-family:var(--font-mono);font-size:12px;color:var(--ink-faint);margin-top:6px}
+.stbtnrow{display:flex;gap:8px;margin-top:10px}
+.stbtn{flex:1;text-align:center;font-family:var(--font-display);text-transform:uppercase;font-size:12px;letter-spacing:.05em;padding:8px;border-radius:7px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);cursor:pointer}
+.stbtn.primary{background:var(--olive);color:#F6F4E7;border-color:var(--olive)}
+.stbtn:active{transform:translateY(1px)}
+.qwrap{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px;box-shadow:var(--shadow)}
+.qmeta{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:12px}
+.qtext{font-size:17px;color:var(--ink);line-height:1.5;margin-bottom:6px}
+.qpassage{background:var(--surface-2);border-left:3px solid var(--olive);border-radius:0 8px 8px 0;padding:11px 14px;font-size:14.5px;color:var(--ink-soft);margin-bottom:12px;line-height:1.5}
+.qopts{display:flex;flex-direction:column;gap:9px;margin-top:12px}
+.qopt{text-align:left;padding:13px 15px;border-radius:9px;border:1px solid var(--line);background:var(--raise);color:var(--ink);font-size:15px;cursor:pointer;transition:background .1s}
+.qopt:hover{background:var(--surface-2)}
+.qopt.correct{background:var(--go-bg);border-color:var(--go);color:var(--go);font-weight:600}
+.qopt.wrong{background:var(--crit-bg);border-color:var(--crit);color:var(--crit)}
+.qopt:disabled{cursor:default}
+.qexp{margin-top:14px;padding:12px 14px;background:var(--warn-bg);border-radius:9px;font-size:14px;color:var(--ink-soft);border:1px solid color-mix(in srgb,var(--warn) 30%,var(--line))}
+.qexp b{color:var(--ink)}
+.qnext{margin-top:14px;width:100%;font-family:var(--font-display);text-transform:uppercase;letter-spacing:.05em;font-size:15px;padding:13px;border-radius:9px;border:none;background:var(--brass);color:#14160E;font-weight:700;cursor:pointer}
+.stback{background:none;border:none;color:var(--brass);font-family:var(--font-mono);font-size:12px;letter-spacing:.06em;cursor:pointer;padding:4px 0;margin-bottom:12px;text-transform:uppercase}
+.flash{background:linear-gradient(135deg,var(--olive-deep),color-mix(in srgb,var(--olive-deep) 80%,#000));color:#F6F4E7;border-radius:14px;padding:40px 22px;text-align:center;min-height:160px;display:flex;flex-direction:column;justify-content:center;cursor:pointer;box-shadow:var(--shadow-lg);border:1px solid var(--brass)}
+.flash .ffront{font-family:var(--font-display);font-size:26px;text-transform:uppercase;letter-spacing:.02em}
+.flash .fback{font-size:18px;color:#D9E0C0;line-height:1.4}
+.flash .fhint{font-family:var(--font-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#B9BE99;margin-top:14px}
+.qresult{text-align:center;padding:24px}
+.qresult .big{font-family:var(--font-display);font-size:54px;font-weight:700;color:var(--olive);line-height:1}
+.qresult .lab{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-top:6px}
+</style>
 </head><body>
 <header class="command">
   <div class="cmdgrid">
@@ -321,6 +354,7 @@
     <button class="tab" role="tab" data-panel="checklists"><span class="num">06</span>Trackers</button>
     <button class="tab" role="tab" data-panel="refine"><span class="num">07</span>Refine</button>
     <button class="tab" role="tab" data-panel="honors"><span class="num">08</span>Honors</button>
+<button class="tab" role="tab" data-panel="study"><span class="num">09</span>Study</button>
   </div>
 </nav>
 
@@ -1093,6 +1127,11 @@
 
   <div class="callout"><b>Field note:</b> rank isn't given, it's earned one milestone at a time. Check the boxes as you clear them and watch this page climb — nothing to log twice.</div>
 </section>
+<section role="tabpanel" id="study">
+<div class="sechead"><div class="eyebrow">Study &amp; Practice · 09</div><h2>ASVAB Study Room</h2>
+<p class="lede">Study the ASVAB right here. Flip flashcards to learn, then take scored practice quizzes per subtest. Your best score on each is saved and syncs across your devices. Focus on the four AFQT subtests first (AR, MK, WK, PC) - they set your gate score.</p></div>
+<div id="study-root"></div>
+</section>
 </main>
 
 <footer class="man wrap">
@@ -1316,6 +1355,7 @@ function showPanel(id){
   document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected', t.dataset.panel===id));
   if(location.hash.slice(1)!==id) history.replaceState(null,'',location.pathname+location.search);
   window.scrollTo(0,0);
+  if(id==="study"){try{studyHome();}catch(e){}}
 }
 document.getElementById('tabrow').addEventListener('click', e=>{
   const b = e.target.closest('.tab'); if(b) showPanel(b.dataset.panel);
@@ -1363,6 +1403,63 @@ computeGauges();
 const startHash = location.hash.slice(1);
 showPanel(document.getElementById(startHash)?startHash:'dashboard');
 setInterval(renderDay, 3600000); // refresh day counter hourly
+
+/* study data */
+var QBANK={"ar": [{"q": "A car travels 150 miles in 3 hours. At the same rate, how far will it travel in 5 hours?", "c": ["225 mi", "250 mi", "300 mi", "200 mi"], "a": 1, "e": "Rate = 150/3 = 50 mph. 50 x 5 = 250 miles."}, {"q": "A shirt costs $40 and is marked down 25%. What is the sale price?", "c": ["$30", "$32", "$35", "$28"], "a": 0, "e": "25% of 40 = 10. 40 - 10 = $30."}, {"q": "If 3 workers build a wall in 12 days, how long for 6 workers at the same rate?", "c": ["24 days", "6 days", "9 days", "4 days"], "a": 1, "e": "Twice the workers = half the time. 12/2 = 6 days."}, {"q": "A recipe needs 2 cups of flour for 12 cookies. How much flour for 30 cookies?", "c": ["4 cups", "5 cups", "6 cups", "3 cups"], "a": 1, "e": "2/12 = x/30, so x = 60/12 = 5 cups."}, {"q": "Tickets cost $8 each. You have $50. What is the most you can buy?", "c": ["5", "6", "7", "8"], "a": 1, "e": "50/8 = 6.25, so 6 tickets ($48)."}, {"q": "A tank holds 240 gallons and drains at 8 gallons per minute. How long to empty?", "c": ["30 min", "24 min", "40 min", "20 min"], "a": 0, "e": "240/8 = 30 minutes."}, {"q": "You save $45 per week. How many weeks to save $540?", "c": ["10", "12", "14", "11"], "a": 1, "e": "540/45 = 12 weeks."}, {"q": "A map scale is 1 inch = 20 miles. Two cities are 3.5 inches apart. Real distance?", "c": ["60 mi", "70 mi", "75 mi", "80 mi"], "a": 1, "e": "3.5 x 20 = 70 miles."}], "mk": [{"q": "Solve: 2x + 5 = 17", "c": ["x = 5", "x = 6", "x = 7", "x = 11"], "a": 1, "e": "2x = 12, x = 6."}, {"q": "What is 3^4?", "c": ["12", "64", "81", "27"], "a": 2, "e": "3x3x3x3 = 81."}, {"q": "The area of a rectangle 8 by 5 is:", "c": ["13", "40", "26", "45"], "a": 1, "e": "Area = length x width = 8 x 5 = 40."}, {"q": "Simplify: 3/4 + 1/8", "c": ["4/12", "7/8", "5/8", "1/2"], "a": 1, "e": "3/4 = 6/8. 6/8 + 1/8 = 7/8."}, {"q": "If x = 3, what is 2x^2 - 4?", "c": ["14", "32", "8", "10"], "a": 0, "e": "2(9) - 4 = 18 - 4 = 14."}, {"q": "The perimeter of a square with side 9 is:", "c": ["18", "36", "81", "27"], "a": 1, "e": "4 x 9 = 36."}, {"q": "What is 15% of 80?", "c": ["8", "12", "15", "20"], "a": 1, "e": "0.15 x 80 = 12."}, {"q": "Solve for y: y/3 = 9", "c": ["3", "12", "27", "6"], "a": 2, "e": "y = 9 x 3 = 27."}], "wk": [{"q": "ABUNDANT most nearly means:", "c": ["Scarce", "Plentiful", "Hidden", "Rapid"], "a": 1, "e": "Abundant = existing in large quantities; plentiful."}, {"q": "DILIGENT most nearly means:", "c": ["Lazy", "Hardworking", "Angry", "Careless"], "a": 1, "e": "Diligent = showing careful, persistent effort."}, {"q": "CONCEAL most nearly means:", "c": ["Reveal", "Hide", "Break", "Clean"], "a": 1, "e": "Conceal = to hide from sight."}, {"q": "He was RELUCTANT to leave. RELUCTANT means:", "c": ["Eager", "Unwilling", "Ready", "Happy"], "a": 1, "e": "Reluctant = hesitant, unwilling."}, {"q": "VITAL most nearly means:", "c": ["Optional", "Essential", "Weak", "Late"], "a": 1, "e": "Vital = absolutely necessary; essential."}, {"q": "TERMINATE most nearly means:", "c": ["Begin", "End", "Repeat", "Delay"], "a": 1, "e": "Terminate = to bring to an end."}, {"q": "NOVICE most nearly means:", "c": ["Expert", "Beginner", "Leader", "Rival"], "a": 1, "e": "Novice = a person new to a field; beginner."}, {"q": "AMPLE most nearly means:", "c": ["Tiny", "Enough or more", "Broken", "Empty"], "a": 1, "e": "Ample = plenty; more than enough."}], "pc": [{"passage": "The Army Fitness Test measures a soldier's strength, endurance, and power across five events. A soldier must score at least 60 points on every event to pass, not merely a high total.", "q": "According to the passage, to pass a soldier must:", "c": ["Score high overall only", "Hit 60 on every event", "Pass three events", "Run fast only"], "a": 1, "e": "The passage states 60 points is required on EVERY event."}, {"passage": "Recurring revenue is income a business can count on each month, such as a maintenance plan. Unlike one-time sales, it provides stability and makes a business easier to run without the owner present.", "q": "Recurring revenue is valuable because it:", "c": ["Is a one-time boost", "Provides monthly stability", "Requires the owner daily", "Lowers all prices"], "a": 1, "e": "The passage says it provides stability and monthly reliability."}, {"passage": "The AFQT is a percentile score built from four ASVAB subtests. It determines whether a candidate is eligible to enlist, while other subtests determine which jobs they qualify for.", "q": "The AFQT primarily determines:", "c": ["Which job you get", "Eligibility to enlist", "Your rank", "Your pay"], "a": 1, "e": "The AFQT decides enlistment eligibility; line scores decide the job."}, {"passage": "Spaced repetition is a study method where material is reviewed at increasing intervals. Research shows it improves long-term memory more than cramming all study into one session.", "q": "Spaced repetition works better than cramming for:", "c": ["Short-term speed", "Long-term memory", "Reading aloud", "Group study"], "a": 1, "e": "The passage credits it with improving long-term memory."}, {"passage": "A follow-up is a message sent after an initial sales contact. Most sales require five or more touches, yet many sellers stop after one, leaving money on the table.", "q": "The main point is that sellers should:", "c": ["Stop after one contact", "Follow up persistently", "Lower prices fast", "Avoid messaging"], "a": 1, "e": "It emphasizes persistent follow-up since sales need 5+ touches."}], "gs": [{"q": "Water is made of hydrogen and which other element?", "c": ["Nitrogen", "Oxygen", "Carbon", "Helium"], "a": 1, "e": "Water is H2O: hydrogen and oxygen."}, {"q": "The powerhouse of the cell is the:", "c": ["Nucleus", "Mitochondria", "Ribosome", "Membrane"], "a": 1, "e": "Mitochondria produce the cell's energy (ATP)."}, {"q": "Which planet is closest to the Sun?", "c": ["Venus", "Mercury", "Earth", "Mars"], "a": 1, "e": "Mercury is the innermost planet."}, {"q": "The force that pulls objects toward Earth is:", "c": ["Friction", "Gravity", "Magnetism", "Inertia"], "a": 1, "e": "Gravity pulls masses toward each other."}, {"q": "How many bones are in the adult human body?", "c": ["106", "206", "306", "406"], "a": 1, "e": "The adult skeleton has 206 bones."}], "ei": [{"q": "Ohm's Law states that Voltage equals:", "c": ["Current x Resistance", "Current / Resistance", "Power x Time", "Resistance / Current"], "a": 0, "e": "V = I x R (voltage = current times resistance)."}, {"q": "The unit of electrical resistance is the:", "c": ["Volt", "Amp", "Ohm", "Watt"], "a": 2, "e": "Resistance is measured in ohms."}, {"q": "A material that allows current to flow easily is a:", "c": ["Insulator", "Conductor", "Resistor", "Capacitor"], "a": 1, "e": "Conductors (like copper) let current flow easily."}, {"q": "Electrical power is measured in:", "c": ["Ohms", "Watts", "Volts", "Amps"], "a": 1, "e": "Power is measured in watts (P = V x I)."}, {"q": "A device that stores electrical charge is a:", "c": ["Resistor", "Capacitor", "Diode", "Switch"], "a": 1, "e": "A capacitor stores charge."}], "mc": [{"q": "A lever with a longer arm on the effort side makes lifting:", "c": ["Harder", "Easier", "Impossible", "Slower only"], "a": 1, "e": "A longer effort arm gives more mechanical advantage - easier to lift."}, {"q": "Two gears mesh: the smaller gear turns:", "c": ["Slower", "Faster", "Same speed", "Backward only"], "a": 1, "e": "The smaller gear spins faster than the larger one."}, {"q": "A pulley system with more supporting ropes lets you lift with:", "c": ["More force", "Less force", "No force", "The same force"], "a": 1, "e": "More rope segments share the load, so less force is needed."}, {"q": "Which requires the most force to compress?", "c": ["A soft spring", "A stiff spring", "A loose rope", "Air"], "a": 1, "e": "A stiffer spring resists compression more."}, {"q": "Mechanical advantage greater than 1 means the machine:", "c": ["Reduces force needed", "Adds weight", "Removes friction", "Stores heat"], "a": 0, "e": "MA > 1 means output force exceeds input force."}], "as": [{"q": "Engine oil primarily serves to:", "c": ["Cool the paint", "Lubricate moving parts", "Clean the windows", "Charge the battery"], "a": 1, "e": "Oil lubricates and reduces friction between engine parts."}, {"q": "A tool used to measure electrical values in a car is a:", "c": ["Torque wrench", "Multimeter", "Feeler gauge", "Pry bar"], "a": 1, "e": "A multimeter reads voltage, current, and resistance."}, {"q": "The part that ignites the fuel-air mixture in a gas engine is the:", "c": ["Alternator", "Spark plug", "Radiator", "Piston ring"], "a": 1, "e": "Spark plugs ignite the mixture in the cylinders."}, {"q": "A Phillips screwdriver is used on screws with a:", "c": ["Slot", "Cross/X head", "Hex socket", "Square head"], "a": 1, "e": "Phillips heads have a cross/X shape."}, {"q": "The car component that stores electrical energy to start the engine is the:", "c": ["Battery", "Muffler", "Carburetor", "Fan belt"], "a": 0, "e": "The battery supplies the starting current."}]};
+var FLASHB={"mk": [["Area of rectangle", "length x width"], ["Area of triangle", "1/2 x base x height"], ["Area of circle", "pi x r^2"], ["Perimeter of square", "4 x side"], ["Order of operations", "PEMDAS: Parentheses, Exponents, Mult/Div, Add/Sub"], ["Slope formula", "(y2 - y1) / (x2 - x1)"]], "ar": [["Rate x Time", "= Distance"], ["Percent change", "(new - old) / old x 100"], ["'Per' means", "divide"], ["'Of' usually means", "multiply"], ["Translate words to math", "Read slowly, define the unknown as x"]], "wk": [["ABUNDANT", "plentiful"], ["DILIGENT", "hardworking"], ["CONCEAL", "hide"], ["VITAL", "essential"], ["TERMINATE", "end"], ["NOVICE", "beginner"], ["AMPLE", "enough or more"], ["RELUCTANT", "unwilling"]], "pc": [["Strategy", "Read the question first, then the passage"], ["Main idea", "What is the passage mostly about?"], ["Inference", "What is implied but not stated directly?"], ["Watch for", "'not', 'except', 'always' - they change meaning"]], "gs": [["H2O", "water = hydrogen + oxygen"], ["Mitochondria", "cell's energy powerhouse"], ["206", "bones in adult body"], ["Gravity", "force pulling mass to Earth"], ["Photosynthesis", "plants make food from sunlight"]], "ei": [["Ohm's Law", "V = I x R"], ["Resistance unit", "Ohm"], ["Power", "Watts, P = V x I"], ["Conductor", "lets current flow (copper)"], ["Insulator", "blocks current (rubber)"]], "mc": [["Lever", "longer effort arm = easier lift"], ["Pulleys", "more ropes = less force"], ["Gears", "small gear spins faster"], ["Mechanical advantage", "output force / input force"]], "as": [["Oil", "lubricates engine parts"], ["Spark plug", "ignites fuel-air mix"], ["Battery", "stores charge to start engine"], ["Multimeter", "measures volts/amps/ohms"]]};
+var SUBS=[["ar", "Arithmetic Reasoning", "mind"], ["mk", "Math Knowledge", "mind"], ["wk", "Word Knowledge", "mind"], ["pc", "Paragraph Comprehension", "mind"], ["gs", "General Science", "mind"], ["ei", "Electronics Info", "mind"], ["mc", "Mechanical Comp", "mind"], ["as", "Auto & Shop", "mind"]];
+
+/* ============ ASVAB STUDY ============ */
+function stBest(k){ var v=parseInt(STATE.metrics&&STATE.metrics['quiz-'+k]); return isNaN(v)?null:v; }
+function studyHome(){
+  var root=document.getElementById('study-root'); if(!root) return;
+  var cards=SUBS.map(function(s){var k=s[0],name=s[1];var best=stBest(k);var qn=(QBANK[k]||[]).length;var fn=(FLASHB[k]||[]).length;
+    return '<div class="stcard"><div class="stkey">'+k.toUpperCase()+'</div><h4>'+name+'</h4>'+
+    '<div class="stbest">'+(best!=null?('Best: '+best+'%'):'Not attempted')+' &middot; '+qn+' questions'+(fn?(' &middot; '+fn+' cards'):'')+'</div>'+
+    '<div class="stbtnrow">'+(fn?'<button class="stbtn" onclick="startFlash(\''+k+'\')">Flashcards</button>':'')+'<button class="stbtn primary" onclick="startQuiz(\''+k+'\')">Quiz</button></div></div>';
+  }).join('');
+  var done=SUBS.filter(function(s){return stBest(s[0])!=null;}).length;
+  root.innerHTML='<div class="callout" style="margin-top:0"><b>Progress:</b> '+done+' / '+SUBS.length+' subtests attempted. Aim for 70%+ on each AFQT subtest (AR, MK, WK, PC) before test day.</div><div class="stgrid">'+cards+'</div>';
+}
+function startFlash(k){
+  var root=document.getElementById('study-root'); var cards=FLASHB[k]||[]; var i=0, flipped=false;
+  function draw(){var c=cards[i];root.innerHTML='<button class="stback" onclick="studyHome()">&larr; Study Room</button>'+
+    '<div class="qmeta"><span>'+k.toUpperCase()+' Flashcards</span><span>'+(i+1)+' / '+cards.length+'</span></div>'+
+    '<div class="flash" id="fcard">'+(flipped?'<div class="fback">'+c[1]+'</div>':'<div class="ffront">'+c[0]+'</div>')+'<div class="fhint">Tap to '+(flipped?'see term':'flip')+'</div></div>'+
+    '<div class="stbtnrow" style="margin-top:14px"><button class="stbtn" onclick="fcPrev()">Prev</button><button class="stbtn primary" onclick="fcNext()">Next</button></div>';
+    document.getElementById('fcard').onclick=function(){flipped=!flipped;draw();};}
+  window.fcNext=function(){flipped=false;i=(i+1)%cards.length;draw();};
+  window.fcPrev=function(){flipped=false;i=(i-1+cards.length)%cards.length;draw();};
+  draw();
+}
+function startQuiz(k){
+  var root=document.getElementById('study-root'); var qs=(QBANK[k]||[]).slice(); var i=0, score=0, answered=false;
+  function draw(){var q=qs[i];answered=false;
+    var opts=q.c.map(function(o,ix){return '<button class="qopt" data-ix="'+ix+'" onclick="qPick('+ix+')">'+o+'</button>';}).join('');
+    root.innerHTML='<button class="stback" onclick="studyHome()">&larr; Study Room</button>'+
+      '<div class="qwrap"><div class="qmeta"><span>'+k.toUpperCase()+'</span><span>Q '+(i+1)+' / '+qs.length+' &middot; Score '+score+'</span></div>'+
+      (q.passage?'<div class="qpassage">'+q.passage+'</div>':'')+
+      '<div class="qtext">'+q.q+'</div><div class="qopts" id="qopts">'+opts+'</div><div id="qfb"></div></div>';
+  }
+  window.qPick=function(ix){ if(answered) return; answered=true; var q=qs[i];
+    var btns=document.querySelectorAll('#qopts .qopt');
+    btns.forEach(function(b){b.disabled=true; var bi=+b.dataset.ix; if(bi===q.a)b.classList.add('correct'); else if(bi===ix)b.classList.add('wrong');});
+    if(ix===q.a) score++;
+    var last=(i===qs.length-1);
+    document.getElementById('qfb').innerHTML='<div class="qexp"><b>'+(ix===q.a?'Correct. ':'Not quite. ')+'</b>'+q.e+'</div><button class="qnext" onclick="qNext()">'+(last?'See results':'Next question')+'</button>';
+  };
+  window.qNext=function(){ if(i<qs.length-1){i++;draw();} else {finish();} };
+  function finish(){var pct=Math.round(score/qs.length*100);
+    var prev=stBest(k); var best=(prev==null)?pct:Math.max(prev,pct);
+    STATE.metrics=STATE.metrics||{}; STATE.metrics['quiz-'+k]=best; persist();
+    root.innerHTML='<button class="stback" onclick="studyHome()">&larr; Study Room</button><div class="qwrap qresult"><div class="big">'+pct+'%</div><div class="lab">'+k.toUpperCase()+' &middot; '+score+' of '+qs.length+' correct</div>'+
+    '<div style="margin-top:10px;color:var(--ink-soft);font-size:14px">Best: '+best+'% &middot; '+(pct>=70?'Passing pace - keep it up.':'Below 70% - review the misses and retry.')+'</div>'+
+    '<div class="stbtnrow" style="margin-top:18px"><button class="stbtn" onclick="startQuiz(\''+k+'\')">Retry</button><button class="stbtn primary" onclick="studyHome()">Study Room</button></div></div>';
+  }
+  draw();
+}
+
+try{studyHome();}catch(e){}
 initDB();
 initSupabase();
 </script>
